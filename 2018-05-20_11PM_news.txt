@@ -1,0 +1,98 @@
+2018-05-20_11PM news
+
+Eurogamer.net:
+-"DF Retro: Revisiting E3 2004 - PlayStation Portable vs Nintendo DS":
+	http://www.eurogamer.net/articles/digitalfoundry-2018-revisiting-e3-2004-playstation-portable-vs-nintendo-ds
+-"How gamers with disabilities shaped the Microsoft Adaptive Controller":
+	http://www.eurogamer.net/articles/2018-05-20-how-gamers-with-disabilities-shaped-the-microsoft-adaptive-controller
+-"There's a Halo arcade game - and Robotron designer Eugene Jarvis is involved":
+	http://www.eurogamer.net/articles/2018-05-19-theres-a-new-halo-arcade-game-and-eugene-jarvis-is-involed
+-"Today is the third anniversary of The Witcher 3":
+	http://www.eurogamer.net/articles/2018-05-19-today-is-the-third-anniversary-of-the-witcher-3
+-"Mysterious new Prey achievements reference a famous R.E.M. song":
+	http://www.eurogamer.net/articles/2018-05-19-new-prey-achievements-reference-a-famous-r-e-m-song-and-now-fans-are-hunting-for-dlc-clues
+-"Far Cry 5 first week sales hit $310m":
+	http://www.eurogamer.net/articles/2018-05-19-far-cry-5-first-week-sales-hit-usd310m
+-"The brilliant Gorogoa comes out on PS4 and Xbox One next week":
+	http://www.eurogamer.net/articles/2018-05-19-the-brilliant-gorogoa-comes-out-on-ps4-and-xbox-one-next-week
+-"Fortnite hits Android this summer":
+	http://www.eurogamer.net/articles/2018-05-19-fortnite-hits-android-this-summer
+-"PC has an HDR support problem - and Nvidia wants to fix it":
+	http://www.eurogamer.net/articles/digitalfoundry-2018-how-nvidia-aims-to-address-pcs-hdr-problem
+-"Imperator: Rome is Paradox's big new grand strategy game":
+	http://www.eurogamer.net/articles/2018-05-19-paradoxs-big-new-grand-strategy-game-is-imperator-rome
+-"Age of Wonders goes sci-fi":
+	http://www.eurogamer.net/articles/2018-05-19-age-of-wonders-goes-sci-fi-with-planetfall
+-"Paradox is making board games via Kickstarter":
+	http://www.eurogamer.net/articles/2018-05-19-paradox-is-making-board-games-via-kickstarter
+
+Wccftech:
+-"Overwatch Director: It Would Be Beneficial To Everyone To Bring Players Together, CrossPlay Is Exciting":
+	https://wccftech.com/bring-players-together-crossplay/
+-"Report Suggests Apple Is Planning A Beats-Branded HomePod With $199 Price Tag":
+	https://wccftech.com/report-suggests-apple-is-planning-a-beats-branded-homepod-with-199-price-tag/
+-"Qualcomm Says Its Being Pressured to Allow OEMs to Release 5G Smartphones as Early as 2018":
+	https://wccftech.com/qualcomm-pressure-release-5g-smartphones-2018/
+-"RED’s Hydrogen One Holographic Phone Will Be Available At AT&T And Verizon Starting This Summer":
+	https://wccftech.com/reds-hydrogen-one-holographic-phone-will-be-available-at-att-and-verizon-starting-this-summer/
+-"NVIDIA GTX 1180 Sampling June 15th, Custom Cards Due by August / September":
+	https://wccftech.com/nvidia-gtx-1180-custom-cards-by-august-september/
+-"Fortnite Mobile Updates: Android Release Details, Customizable HUD, Voice Chat, Improved Controls, Smaller Size & More":
+	https://wccftech.com/fortnite-mobile-updates-android-release-details-customizable-hud-voice-chat-improved-controls-smaller-size-more/
+
+BBC World:
+-"Trump seeks probe into FBI 'infiltration'":
+	http://www.bbc.com/news/world-us-canada-44192025
+-"Arm schoolteachers, Texas official says":
+	http://www.bbc.com/news/world-us-canada-44187718
+-"US: Punitive China tariffs on hold":
+	http://www.bbc.com/news/business-44190169
+-"'Mass irregularities' in Venezuela poll":
+	http://www.bbc.com/news/world-latin-america-44187838
+-"Cuba plane company 'had safety worries'":
+	http://www.bbc.com/news/world-latin-america-44188469
+-"Man badly hurt by lava spatter in Hawaii":
+	http://www.bbc.com/news/world-us-canada-44187836
+
+Science Magazine:
+-"Trump to nominate Chris Fall, neuroscientist and policy veteran, to lead DOE Science":
+	http://www.sciencemag.org/news/2018/05/trump-nominate-chris-fall-neuroscientist-and-policy-veteran-lead-doe-science
+-"Head of controversial agency becomes Russian minister for science and higher education":
+	http://www.sciencemag.org/news/2018/05/head-controversial-agency-becomes-russian-minister-science-and-higher-education
+-"Despite spread to port city, Congo Ebola outbreak isn’t an international emergency yet, WHO says":
+	http://www.sciencemag.org/news/2018/05/despite-spread-port-city-congo-ebola-outbreak-isn-t-international-emergency-yet-who
+-"Top stories: HPV vaccine debate, 2000-year-old pollution, and a lawmaker’s views on sea level rise":
+	http://www.sciencemag.org/news/2018/05/top-stories-hpv-vaccine-debate-2000-year-old-pollution-and-lawmaker-s-views-sea-level
+-"Something killed a lot of sperm whales in the past—and it wasn’t whalers":
+	http://www.sciencemag.org/news/2018/05/something-killed-lot-sperm-whales-past-and-it-wasn-t-whalers
+-"FDA just approved the first drug to prevent migraines. Here’s the story of its discovery—and its limitations":
+	http://www.sciencemag.org/news/2018/05/will-antibodies-finally-put-end-migraines
+-"That NASA climate science program Trump axed? House lawmakers just moved to restore it":
+	http://www.sciencemag.org/news/2018/05/nasa-climate-science-program-trump-axed-house-lawmakers-just-moved-restore-it
+-"How rice farming may have spread across the ancient world":
+	http://www.sciencemag.org/news/2018/05/how-rice-farming-may-have-spread-across-ancient-world
+
+r/ Technology:
+-"The backlash that never happened: New data shows people actually increased their Facebook usage after the Cambridge Analytica scandal.":
+	http://www.businessinsider.com/people-increased-facebook-usage-after-cambridge-analytica-scandal-2018-5
+-"Mark Zuckerberg to face EU lawmakers in private. Let us be part of the hearing.":
+	https://foundation.mozilla.org/campaigns/let-us-be-part-hearing/
+-"Bitcoin is consuming as much energy as the country of Ireland":
+	https://theoutline.com/post/4561/bitcoin-is-consuming-as-much-energy-as-the-country-of-ireland
+-"Social media was supposed to 'bring the world closer together.' Instead it's making us pettier":
+	https://www.cnbc.com/2018/05/19/no-social-media-does-not-bring-the-world-closer-together-commentary.html
+-"Facebook Android app caught seeking 'superuser' clearance":
+	https://www.theregister.co.uk/2018/05/18/facebook_android_app_caught_seeking_superuser_clearance/
+
+r/ WorldNews:
+-"Pope Francis tells gay man: 'God made you like this'":
+	https://www.theguardian.com/world/2018/may/20/pope-juan-carlos-cruz
+-"All 34 of Chile’s Catholic bishops resign in fallout from huge child sex abuse scandal":
+	https://thinkprogress.org/chilean-bishops-submit-resignation-over-sex-abuse-scandal-672583bb35c0/
+-"Muslim man lynched to death in central India for ‘slaughtering cow’":
+	https://www.rt.com/news/427258-indian-man-killed-cow/
+-"France to fine men up to €750 for wolf-whistling or making sexual comments to women":
+	https://www.independent.ie/world-news/europe/france-to-fine-men-up-to-750-for-wolfwhistling-or-making-sexual-comments-to-women-36918999.html
+-"Scotland will consider independence vote after Brexit clarity, says Sturgeon":
+	https://www.politico.eu/article/nicola-sturgeon-scotland-independence-vote-brexit-clarity/
+

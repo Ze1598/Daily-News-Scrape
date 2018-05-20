@@ -1,0 +1,66 @@
+/* Style all the page content */
+body {
+    background: #530000;
+    font-family: Lato,sans-serif;
+}
+
+/* Style just the page headers (the first div): the title 
+    and the date */
+.page-header {
+}
+
+/* Style the page title header specifically */
+.title {
+    color: white;
+    font-size: 225%;
+    margin-top: 15px;
+    margin-left: 15px;
+    /* background-color: white; */
+}
+
+/* Style the page date header specifically */
+.date {
+    color: white;
+    font-size: 180%;
+    margin: -10px 0px 20px 15px;
+    /* background-color: white; */
+}
+
+/* Before each div of news that doesn't have a "page-header" class,
+    add the source (name) of those news */
+/* div:not(.page-header):before { */
+div:not(.page-header):before {
+    content: attr(id);
+    font-size: 150%;
+    font-weight: bold;
+    margin-left: 25px;
+    margin-top: 15px;
+}
+
+/* Style each div of news that doesn't have a "page-header" class */
+div:not(.page-header) {
+    /* background: linear-gradient(135deg, #091dd1, #0d0083); */
+    background-color: #4b59d4;
+    border: 1px solid white;
+    margin: 15px;
+    width: 75%;
+    padding: 15px 0px 7px 0px;
+}
+
+/* Style each news title, which are list items with no bullet */
+li {
+    background-color: #e9e92d;
+    border: 1px solid white;
+    font-size: 115%;
+    margin: 10px;
+    width: 75%;
+    padding: 5px;
+}
+
+.top-anchor {
+    background-color: #e9e92d;
+    border: 1px solid white;
+    width: 6%;
+    text-align: center;
+    float: right;
+}
