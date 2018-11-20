@@ -1,6 +1,7 @@
 '''
 Scrape news titles and its URLs from a set of websites then 
-save them to a .txt file.
+create an .html file and open it using the computer's 
+default browser.
 '''
 
 # Used to make GET requests
@@ -26,14 +27,9 @@ import Ze1598Bot_credentials as cred
 def scrape_eurogamer():
     '''Scrape Eurogamer.net today's news.'''
 
-    return_string = 'Eurogamer.net:\n'
+    return_data = [['Eurogamer.net:\n'], []]
     target = get('http://www.eurogamer.net').text
     soup = BeautifulSoup(target, 'html5lib')
-    html_temp = '''\n\n\n\t\t<div id="Eurogamer">
-            <ul type="none">'''
-
-    # A mapping of the scraped news and its URLs
-    # news_mapping = {}
 
     articles = soup.find('div', class_='small-list').find_all('div', class_='list-item ')
     for article in articles:
@@ -47,39 +43,26 @@ def scrape_eurogamer():
             span_text = article.p.a.span.text.strip()
             # Remove the <span> tag text
             title = article.p.a.text.strip().replace(span_text, "")
-            # news_mapping[title] = url
         except:
             title = article.p.a.text.strip()
-            # news_mapping[title] = url
-        html_temp += f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>'
 
-        return_string += f'-"{title}":\n\t{url}\n'
+        return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
 
-    html_temp += '''\n\t\t\t</ul>
-        </div>'''
-
-    # return (return_string, news_mapping)
-    return (return_string, html_temp)
+    return return_data
 
 
 def scrape_wccftech():
     '''Scrape Wccftech's top 6 featured news.'''
-    return_string = 'Wccftech:\n'
+
+    return_data = [['Wccftech:\n'], []]
     target = get('https://wccftech.com/').text
     soup = BeautifulSoup(target, 'html5lib')
-    html_temp = '''\n\n\t\t<div id="Wccftech">
-            <ul type="none">'''
-
-    # A mapping of the scraped news and its URLs
-    # news_mapping = {}
 
     for i in range(1,7):
         article = soup.find('a', class_='featured featured-'+str(i))
         title = article.h2.text
         url = article['href']
-        # news_mapping[title] = url
-        return_string += f'-"{title}":\n\t{url}\n'
-        html_temp += f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>'
+        return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
     
     # Scrape the first news from the Hardware, the Gaming and the Mobile sections
     # These are simply the first articles located in different <div> elements (\
@@ -88,60 +71,38 @@ def scrape_wccftech():
     for article in ["sticky-hardware", "sticky-gaming", "sticky-mobile"]:
         title = soup.find('section', class_=article).find('li', class_="first").h3.a.text.strip()
         url = soup.find('section', class_=article).find('li', class_="first").h3.a["href"].strip()
-        html_temp += f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>'
+        return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
 
-    html_temp += '''\n\t\t\t</ul>
-        </div>'''
-
-    # return (return_string, news_mapping)
-    return (return_string, html_temp)    
+    return return_data
 
 
 def scrape_jornal_noticias():
     '''Scrape Jornal de Notícias.net today's news.'''
 
-    return_string = 'Jornal de Notícias:\n'
+    return_data = [['Jornal de Notícias:\n'], []]
     target = get('https://www.jn.pt').text
     soup = BeautifulSoup(target, 'html5lib')
-    html_temp = '''\n\n\n\t\t<div id="Jornal de Noticias">
-            <ul type="none">'''
-
-    # A mapping of the scraped news and its URLs
-    # news_mapping = {}
 
     for article in soup.find_all('article', class_ = 't-g1-l1-am1'):
         url = 'https://www.jn.pt' + str(article.header.h2.a['href'])
         title = article.header.h2.text.strip()
-        html_temp += f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>'
+        return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
 
-        return_string += f'-"{title}":\n\t{url}\n'
-
-    html_temp += '''\n\t\t\t</ul>
-        </div>'''
-
-    # return (return_string, news_mapping)
-    return (return_string, html_temp)
+    return return_data
 
 
 def scrape_bbc_news():
     '''Scrape the top 6 featured news from BBC World News.'''
 
-    return_string = 'BBC World:\n'
+    return_data = [['BBC World News:\n'], []]
     target = get('http://www.bbc.com/news/world').text
     soup = BeautifulSoup(target, 'html5lib')
-    html_temp = '''\n\n\t\t<div id="BBC World News">
-            <ul type="none">'''
-
-    # A mapping of the scraped news and its URLs
-    # news_mapping = {}
 
     # Article at the top
     top_article = soup.find('div', class_="buzzard-item")
     title = top_article.a.h3.text.strip()
     url = 'http://www.bbc.com' + top_article.a['href'].strip()
-    # news_mapping[title] = url
-    return_string += f'-"{title}":\n\t{url}\n'
-    html_temp += f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>'
+    return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
 
 
     # First and second columns (each contains a single news article)
@@ -149,180 +110,139 @@ def scrape_bbc_news():
     for article in column:
         title = article.a.h3.text.strip()
         url = 'http://www.bbc.com' + article.a['href'].strip()
-        # news_mapping[title] = url
-        return_string += f'-"{title}":\n\t{url}\n'
-        html_temp += f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>'
+        return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
     
     # Third column (contains 3 news)
     column = soup.find('div', class_='pigeon__column pigeon__column--b').find_all('div', class_='pigeon-item faux-block-link')
     for article in column:
         title = article.a.h3.text.strip()
         url = 'http://www.bbc.com' + article.a['href'].strip()
-        # news_mapping[title] = url
-        return_string += f'-"{title}":\n\t{url}\n'
-        html_temp += f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>'
+        return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
 
-    html_temp += '''\n\t\t\t</ul>
-        </div>'''
-
-    # return (return_string, news_mapping)
-    return (return_string, html_temp)    
+    return return_data
 
 
 def scrape_science_mag():
     '''Scrape the first page of Latest News from Science Magazine.'''
 
-    return_string = 'Science Magazine:\n'
+    return_data = [['Science Magazine:\n'], []]
     target = get('http://www.sciencemag.org/').text
     soup = BeautifulSoup(target, 'html5lib')
-    html_temp = '''\n\n\t\t<div id="Science Magazine">
-            <ul type="none">'''
 
-    # A mapping of the scraped news and its URLs
-    # news_mapping = {}
-
+    # Extract the part of the HTML containing the articles to scrape
     articles = soup.find('ul', class_='tabbed__panel tabbed__grid').find_all('li')
     for post in articles:
         title = post.article.h2.a.text.strip()
         url = 'http://www.sciencemag.org' + post.article.h2.a['href']
-        # news_mapping[title] = url
-        return_string += f'-"{title}":\n\t{url}\n'
-        html_temp += f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>'
+        return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
 
-    html_temp += '''\n\t\t\t</ul>
-        </div>'''
-    
-    # return (return_string, news_mapping)
-    return (return_string, html_temp)    
+    return return_data
 
 
 def scrape_reddit_tech():
     '''Scrape the fist 10 posts in r/ technology's Hot section 
     using Reddit's API.'''
 
-    return_string = 'r/ Technology:\n'
+    return_data = [['r/ Technology:\n'], []]
     subreddit_instance = reddit_instance.subreddit('technology')
-    html_temp = '''\n\n\t\t<div id="r/ Technology">
-            <ul type="none">'''
     
-    # A mapping of the scraped news and its URLs
-    # news_mapping = {}
-    
-    first_10_hot = list(subreddit_instance.hot(limit=11))
+    first_n_hot = list(subreddit_instance.hot(limit=12))
     # Delete subreddit-specific posts
-    del first_10_hot[0:2]
-    for post in first_10_hot:
-        # news_mapping[post.title] = post.url
-        return_string += f'-"{post.title}":\n\t{post.url}\n'
-        html_temp += f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>'
+    del first_n_hot[0:2]
+    for post in first_n_hot:
+        return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
     
-    html_temp += '''\n\t\t\t</ul>
-        </div>'''
-
-    # return (return_string, news_mapping)
-    return (return_string, html_temp)
+    return return_data
 
 
 def scrape_reddit_world_news():
     '''Scrape the fist 10 posts in r/ worldnews's Hot section
     using Reddit's API.'''
 
-    return_string = 'r/ WorldNews:\n'
+    return_data = [['r/ WorldNews:\n'], []]
     subreddit_instance = reddit_instance.subreddit('worldnews')
-    html_temp = '''\n\n\t\t<div id="r/ WorldNews">
-            <ul type="none">'''
 
-    # A mapping of the scraped news and its URLs
-    # news_mapping = {}
+    first_n_hot = list(subreddit_instance.hot(limit=10))
+    for post in first_n_hot:
+        return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
 
-    first_10_hot = list(subreddit_instance.hot(limit=10))
-    for post in first_10_hot:
-        # news_mapping[post.title] = post.url
-        return_string += f'-"{post.title}":\n\t{post.url}\n'
-        html_temp += f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>'
-
-    html_temp += '''\n\t\t\t</ul>
-        </div>'''
-
-    # return (return_string, news_mapping)
-    return (return_string, html_temp)    
+    return return_data 
 
 
 def scrape_reddit_eli5():
     '''Scrape the fist 7 posts in r/ explainlikeimfive's 
     Hot section using Reddit's API.'''
 
-    return_string = 'r/ ExplainLikeI\'mFive:\n'
+    return_data = [['r/ ExplainLikeI\'mFive:\n'], []]
     subreddit_instance = reddit_instance.subreddit('explainlikeimfive')
-    html_temp = '''\n\n\t\t<div id="r/ ExplainLikeI'mFive">
-            <ul type="none">'''
 
-    # A mapping of the scraped news and its URLs
-    # news_mapping = {}
+    first_n_hot = list(subreddit_instance.hot(limit=6))
+    # Delete subreddit-specific posts
+    del first_n_hot[0]
+    for post in first_n_hot:
+        return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
 
-    first_7_hot = list(subreddit_instance.hot(limit=8))
-    del first_7_hot[0]
-    for post in first_7_hot:
-        # news_mapping[post.title] = post.url
-        return_string += f'-"{post.title}":\n\t{post.url}\n'
-        html_temp += f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>'
-
-    html_temp += '''\n\t\t\t</ul>
-        </div>'''
-
-    # return (return_string, news_mapping)
-    return (return_string, html_temp)    
+    return return_data
 
 
 def scrape_reddit_til():
     '''Scrape the fist 7 posts in r/ todayilearned's Hot section
     using Reddit's API.'''
 
-    return_string = 'r/ TodayILearned:\n'
+    return_data = [['r/ TodayILearned:\n'], []]
     subreddit_instance = reddit_instance.subreddit('todayilearned')
-    html_temp = '''\n\n\t\t<div id="r/ TodayILearned">
-            <ul type="none">'''
 
-    # A mapping of the scraped news and its URLs
-    # news_mapping = {}
+    first_n_hot = list(subreddit_instance.hot(limit=5))
+    for post in first_n_hot:
+        return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
 
-    first_7_hot = list(subreddit_instance.hot(limit=7))
-    for post in first_7_hot:
-        # news_mapping[post.title] = post.url
-        return_string += f'-"{post.title}":\n\t{post.url}\n'
-        html_temp += f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>'
-
-    html_temp += '''\n\t\t\t</ul>
-        </div>'''
-
-    # return (return_string, news_mapping)
-    return (return_string, html_temp)    
+    return return_data
 
 
 def scrape_reddit_python():
     '''Scrape the fist 5 posts in r/ Python's Hot section
     using Reddit's API.'''
 
-    return_string = 'r/ WorldNews:\n'
+    return_data = [['r/ Python:\n'], []]
     subreddit_instance = reddit_instance.subreddit('Python')
-    html_temp = '''\n\n\t\t<div id="r/ Python">
-            <ul type="none">'''
 
-    # A mapping of the scraped news and its URLs
-    # news_mapping = {}
+    first_n_hot = list(subreddit_instance.hot(limit=9))
+    # Delete subreddit-specific posts
+    del first_n_hot[0:2]
+    for post in first_n_hot:
+        return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
 
-    first_5_hot = list(subreddit_instance.hot(limit=7))
-    del first_5_hot[0:2]
-    for post in first_5_hot:
-        # news_mapping[post.title] = post.url
-        return_string += f'-"{post.title}":\n\t{post.url}\n'
-        html_temp += f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>'
+    return return_data
 
-    html_temp += '''\n\t\t\t</ul>
-        </div>'''
 
-    # return (return_string, news_mapping)
-    return (return_string, html_temp)    
+def scrape_reddit_learn_prog():
+    '''Scrape the fist 5 posts in r/ learnprogramming's Hot section
+    using Reddit's API.'''
+
+    return_data = [['r/ learnprogramming:\n'], []]
+    subreddit_instance = reddit_instance.subreddit('learnprogramming')
+
+    first_n_hot = list(subreddit_instance.hot(limit=9))
+    # Delete subreddit-specific posts
+    del first_n_hot[0:2]
+    for post in first_n_hot:
+        return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
+
+    return return_data
+
+
+def scrape_reddit_educational_gifs():
+    '''Scrape the fist 7 posts in r/ educationalgifs' Hot section
+    using Reddit's API.'''
+
+    return_data = [['r/ educationalgifs:\n'], []]
+    subreddit_instance = reddit_instance.subreddit('educationalgifs')
+
+    first_n_hot = list(subreddit_instance.hot(limit=7))
+    for post in first_n_hot:
+        return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
+
+    return return_data
 
 
 if __name__ == '__main__':
@@ -342,17 +262,11 @@ if __name__ == '__main__':
     # Define the name of the file to be written
     if hour < 12:
         file_name = f'{today}_{hour}AM_news'
-        # file_name = str(today) + '_' + str(hour) + 'AM_news.txt'
     elif hour >= 12:
         file_name = f'{today}_{hour-12}PM_news'
-        # file_name = str(today) + '_' + str(hour) + 'PM_news.txt'
-
-    '''
-    # Dictionary with the mappings of the scraped news and its URLs
-    news = {}
-    '''
 
     # The string to hold the HTML to be written to the file
+    # This includes the whole <head> and the page's <header>
     html_string = f'''<!DOCTYPE html>
 <html>
     <head>
@@ -362,10 +276,35 @@ if __name__ == '__main__':
     </head>
     
     <body>
-        <div class="page-header" id="page-top">
+        <header class="page-header" id="page-top">
             <h1 class="title">Daily News Scrape</h1>
             <h2 class="date">{today}</h2>
-        </div>'''
+        </header>
+        <nav id="nav-buttons">
+        	<div id="column1">
+        		<p class="section-nav-button"><a href="#Eurogamer.net">Eurogamer.net</a></p>
+        		<p class="section-nav-button"><a href="#Wccftech">Wccftech</a></p>
+        		<p class="section-nav-button"><a href="#Jornal de Notícias">Jornal de Notícias</a></p>
+        		<p class="section-nav-button"><a href="#BBC World News">BBC World News</a></p>
+        	</div>
+        	
+        	<div id="column2">
+        		<p class="section-nav-button"><a href="#Science Magazine">Science Magazine</a></p>
+        		<p class="section-nav-button"><a href="#r/ Technology">r/ Technology</a></p>
+        		<p class="section-nav-button"><a href="#r/ WorldNews">r/ WorldNews</a></p>
+        		<p class="section-nav-button"><a href="#r/ Python">r/ Python</a></p>
+        	</div>
+
+        	<div id="column3">
+        		<p class="section-nav-button"><a href="#r/ learnprogramming">r/ learnprogramming</a></p>
+        		<p class="section-nav-button"><a href="#r/ educationalgifs">r/ educationalgifs</a></p>
+        		<p class="section-nav-button"><a href="#r/ ExplainLikeI'mFive">r/ ExplainLikeI'mFive</a></p>
+        		<p class="section-nav-button"><a href="#r/ TodayILearned">r/ TodayILearned</a></p>
+        	</div>
+
+        	<div class="clear" />
+
+        </nav>'''
 
     # Call each function to scrape data and save the returned\
     # results. Since the returned result for each function is a\
@@ -374,106 +313,53 @@ if __name__ == '__main__':
     # titles and URLs, update the contents of that dictionary
     # to the 'news' dictionary.
 
-    eurogamer = scrape_eurogamer()
-    # news.update(eurogamer[1])
+    # Call each function to scrape data from a specific website.
+    # Each function is responsible for scraping the news from one\
+    # website and return a list of two items: (1) a string which is\
+    # the name of the website and (2) a list of strings, where each\
+    # string is a line of HTML about one scraped news post.
+    # Since the same HTML structure is used to present the news from\
+    # each website, we can use simplify the process: create the\
+    # same beginning and end for each <article> (the content for each\
+    # website), then, in the middle, fill it with the HTML parts\
+    # returned by each function
 
-    wccftech = scrape_wccftech()
-    # news.update(wccftech[1])
-
-    jornal_noticias = scrape_jornal_noticias()
-    
-    bbc_news = scrape_bbc_news()
-    # news.update(bbc_news[1])
-    
-    science_mag = scrape_science_mag()
-    # news.update(science_mag[1])
-    
     # Create a Reddit instance for API access
     reddit_instance = praw.Reddit(client_id = cred.client_id, client_secret = cred.client_secret, user_agent = cred.user_agent)
-    
-    reddit_tech = scrape_reddit_tech()
-    # news.update(reddit_tech[1])
-    
-    reddit_world_news = scrape_reddit_world_news()
-    # news.update(reddit_world_news[1])
+    websites_list = [scrape_eurogamer, scrape_wccftech, scrape_jornal_noticias, scrape_bbc_news,
+    				scrape_science_mag, scrape_reddit_tech, scrape_reddit_world_news,
+    				scrape_reddit_python, scrape_reddit_learn_prog, scrape_reddit_educational_gifs, 
+    				scrape_reddit_eli5, scrape_reddit_til]
 
-    reddit_eli5 = scrape_reddit_eli5()
-
-    reddit_til = scrape_reddit_til()
-
-    reddit_python = scrape_reddit_python()
-
-    # Create a macro string with all the scraped news for the .txt file
-    write_string += eurogamer[0] + '\n'
-    write_string += wccftech[0] + '\n'
-    write_string += jornal_noticias[0] + '\n'
-    write_string += bbc_news[0] + '\n'
-    write_string += science_mag[0] + '\n'
-    # reddit_instance = praw.Reddit(client_id = cred.client_id, client_secret = cred.client_secret, user_agent = cred.user_agent)
-    write_string += reddit_tech[0] + '\n'
-    write_string += reddit_world_news[0] + '\n'
-    write_string += reddit_eli5[0] + '\n'
-    write_string += reddit_til[0] + '\n'
-    write_string += reddit_python[0] + '\n'
-
-    # Format the HTML string with the scraped information
-    html_string += eurogamer[1] + '\n\t\t<p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'
-    html_string += wccftech[1] + '\n\t\t<p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'
-    html_string += jornal_noticias[1] + '\n\t\t<p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'    
-    html_string += bbc_news[1] + '\n\t\t<p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'
-    html_string += science_mag[1] + '\n\t\t<p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'
-    html_string += reddit_tech[1] + '\n\t\t<p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'
-    html_string += reddit_world_news[1] + '\n\t\t<p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'
-    html_string += reddit_eli5[1] + '\n\t\t<p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'
-    html_string += reddit_til[1] + '\n\t\t<p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'
-    html_string += reddit_python[1] + '\n\t\t<p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'
-
-    # Finish the HTML in the html string
+    # Loop through the list of functions (in other words, scrape each\
+    # website)
+    for website in websites_list:
+    	# Call the function
+        scraped_data = website()
+        # Create the beginning of the <article>
+        html_string += f'''\n\n\t\t<article id="{scraped_data[0][0][:-2]}">
+            <ul type="none">'''
+        for news in scraped_data[1]:
+            html_string += news
+        # Close the <article>
+        html_string += '''\n\t\t\t</ul>
+        </article>
+        <p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'''
+    # There's nothing more to add to the page, so close the <body> and\
+    # end the file (</html>)
     html_string += '''\n\t\t</body>
     
 </html>'''
 
-    # After scraping the websites, write the information to a .txt file
-    # with open(file_name+'.txt', 'w') as f:
-        # f.write(write_string)
-        # startfile(file_name+'.txt')
-    
     # Write the scraped information to an HTML file
-    with open(file_name+'.html','w') as f:
-        f.write(html_string)
+    with open(file_name+'.html','wb') as f:
+    	# Encode the HTML string to ISO-8859-1, ignoring any encoding errors.
+    	# Since the encoding returns a bytes object, we open the file in binary\
+    	# read-write access mode
+        f.write(html_string.encode("ISO-8859-1", errors="ignore"))
+        # Start the HTML file (open it in the computer's default browser)
         startfile(file_name+'.html')
 
     # Output the elapsed time since the beginning of the script and the writing to the file
-    print('Your news have been scraped.\nElapsed time:', round(time() - start_time, 3), 'seconds.')
-
-    '''    
-    # Prompt the user to enter 2 space-separated words
-    print('Which news article should I open?')
-    # open_news = input('Enter two space-separated words that appear in the title of the article: ').lower().split()
-
-    # Run this loop while the user input is not empty
-    while open_news:
-        # Loop through the key-value pairs in the 'news' dictionary
-        for key in news:
-            # If both words are in a news' title, open the link of that news in the browser
-            if open_news[0] in key.lower() and open_news[1] in key.lower():
-                # Open the matched news' URL on the browser
-                webbrowser.open(news[key])
-                print('The news article has been opened in your default browser.')
-                # If there was match, there's no need to keep looping through the dictionary
-                break
-        
-        # If we finished looping through the dictionary, it means there was no match
-        else:
-            print('Your input did not match any title.')
-
-        print()
-
-        # Prompt the user for which news article to open next
-        open_news = input('Enter two space-separated words that appear in the title of the article: ').lower().split()
-
-    # Print a final statement after the user enters empty input
-    else:
-    '''
-
+    print('Your news have been scraped.\nElapsed time:', int(time() - start_time), 'seconds.')
     print('The program has finished.')

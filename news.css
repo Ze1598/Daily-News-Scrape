@@ -1,18 +1,35 @@
+/* General */
+/*---------------------------------------------------------------*/
+
 /* Style all the page content */
 body {
-    background: #530000;
+    background: #699ef4;
     font-family: Lato,sans-serif;
 }
 
-/* Style just the page headers (the first div): the title 
+.clear {
+    clear: both;
+}
+
+/*---------------------------------------------------------------*/
+
+
+/* Header */
+/*---------------------------------------------------------------*/
+
+/* Style the header: the title 
     and the date */
-.page-header {
+header {
+    width: 22%;
+    box-shadow: 5px 5px;
+    border-radius: 8px;
+    margin-left: 10px;
+    border: 2px solid white;
 }
 
 /* Style the page title header specifically */
 .title {
-    color: white;
-    font-size: 225%;
+    font-size: 175%;
     margin-top: 15px;
     margin-left: 15px;
     /* background-color: white; */
@@ -20,16 +37,69 @@ body {
 
 /* Style the page date header specifically */
 .date {
-    color: white;
-    font-size: 180%;
+    font-size: 140%;
     margin: -10px 0px 20px 15px;
-    /* background-color: white; */
+    /*background-color: white; */
 }
+
+/*---------------------------------------------------------------*/
+
+/* Navigation buttons */
+/*---------------------------------------------------------------*/
+
+/* Add a title to the <nav> section */
+nav:before {
+    content: "Navigation";
+    font-size: 150%;
+    font-weight: bold;
+    margin-left: 25px;
+    margin-top: 15px;
+    display: block;
+}
+
+/* Format the <nav> to look like the <article>s */
+nav {
+    background-color: #4b59d4;
+    border: 2px solid white;
+    box-shadow: 7px 7px;
+    border-radius: 8px;
+    margin: 15px 15px 25px 15px;
+    width: 60%;
+    padding-bottom: 15px;
+}
+
+/* Format the columns of the <nav> */
+#column1, #column2, #column3 {
+    margin-top: 10px;
+    margin-left: 60px;
+    float: left;
+}
+
+/* Adjust the first column's left margin */
+#column1 {
+    margin-left: 40px;
+}
+
+/* Adjust the <nav>'s <p>s to make them look like the
+    ones from the <article>s */
+nav p {
+    background-color: #e9e92d;
+    border: 1px solid white;
+    font-size: 115%;
+    margin: 10px;
+    width: 100%;
+    padding: 5px;
+}
+
+/*---------------------------------------------------------------*/
+
+
+/* News-section specific */
+/*---------------------------------------------------------------*/
 
 /* Before each div of news that doesn't have a "page-header" class,
     add the source (name) of those news */
-/* div:not(.page-header):before { */
-div:not(.page-header):before {
+article:before {
     content: attr(id);
     font-size: 150%;
     font-weight: bold;
@@ -38,12 +108,14 @@ div:not(.page-header):before {
 }
 
 /* Style each div of news that doesn't have a "page-header" class */
-div:not(.page-header) {
+article {
     /* background: linear-gradient(135deg, #091dd1, #0d0083); */
     background-color: #4b59d4;
-    border: 1px solid white;
+    border: 2px solid white;
+    border-radius: 5px;
+    box-shadow: 7px 7px;
     margin: 15px;
-    width: 75%;
+    width: 60%;
     padding: 15px 0px 7px 0px;
 }
 
@@ -53,7 +125,7 @@ li {
     border: 1px solid white;
     font-size: 115%;
     margin: 10px;
-    width: 75%;
+    width: 85%;
     padding: 5px;
 }
 
@@ -63,4 +135,9 @@ li {
     width: 6%;
     text-align: center;
     float: right;
+    position: relative;
+    top: -3em;
+    left: -25em;
 }
+
+/*---------------------------------------------------------------
