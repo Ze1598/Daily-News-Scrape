@@ -11,6 +11,9 @@ Update log:
 
 -(nov 20th 2018) Updated the script code's to be cleaner and more streamlined. I also updated the page's style and a added a couple of new news sources. Along with these changes I uploaded an example file to showcase what type of file the Python scripts creates now.
 
+This is a short video showing what the page looks like and what it's content looks like:
+https://i.gyazo.com/13acdd2a44be4456f2217b1d09d5f6ce.mp4
+
 External references:
 
 -Beautiful Soup: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
