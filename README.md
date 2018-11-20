@@ -7,6 +7,7 @@ Future Updates:
 
 Update log:
 
+-(may 27th 2018) Updated the script to scrape news from more sources. I've also commented out the option to write the news to a .txt file, so now running the script only outputs the .html file (hence the difference in dates in the 2 example files uploaded to ther repo).
 
 External references:
 
