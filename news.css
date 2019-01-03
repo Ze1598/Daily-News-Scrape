@@ -17,8 +17,7 @@ body {
 /* Header */
 /*---------------------------------------------------------------*/
 
-/* Style the header: the title 
-    and the date */
+/* Style the header: the title and the date */
 header {
     width: 22%;
     box-shadow: 5px 5px;
@@ -69,7 +68,9 @@ nav {
 }
 
 /* Format the columns of the <nav> */
-#column1, #column2, #column3 {
+/* Select all elements  that have an id value starting with "column" */
+/*#column1, #column2, #column3, #column4, #column5 {*/
+[id^="column"] {
     margin-top: 10px;
     margin-left: 60px;
     float: left;
