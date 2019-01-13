@@ -29,7 +29,9 @@ import Ze1598Bot_credentials as cred
 # import webbrowser
 
 def scrape_eurogamer():
-	'''Scrape Eurogamer.net today's news.'''
+	"""
+	Scrape Eurogamer.net today's news.
+	"""
 
 	return_data = [['Eurogamer.net:\n'], []]
 	target = get('http://www.eurogamer.net')
@@ -56,7 +58,9 @@ def scrape_eurogamer():
 
 
 def scrape_wccftech():
-	'''Scrape Wccftech's top 6 featured news.'''
+	"""
+	Scrape Wccftech's top 6 featured news.
+	"""
 
 	return_data = [['Wccftech:\n'], []]
 	target = get('https://wccftech.com/')
@@ -81,7 +85,9 @@ def scrape_wccftech():
 
 
 def scrape_jornal_noticias():
-	'''Scrape Jornal de Notícias.net today's news.'''
+	"""
+	Scrape Jornal de Notícias.net today's news.
+	"""
 
 	return_data = [['Jornal de Notícias:\n'], []]
 	target = get('https://www.jn.pt')
@@ -96,7 +102,9 @@ def scrape_jornal_noticias():
 
 
 def scrape_bbc_news():
-	'''Scrape the top 6 featured news from BBC World News.'''
+	"""
+	Scrape the top 6 featured news from BBC World News.
+	"""
 
 	return_data = [['BBC World News:\n'], []]
 	target = get('http://www.bbc.com/news/world')
@@ -127,7 +135,9 @@ def scrape_bbc_news():
 
 
 def scrape_science_mag():
-	'''Scrape the first page of Latest News from Science Magazine.'''
+	"""
+	Scrape the first page of Latest News from Science Magazine.
+	"""
 
 	return_data = [['Science Magazine:\n'], []]
 	target = get('http://www.sciencemag.org/')
@@ -144,8 +154,10 @@ def scrape_science_mag():
 
 
 def scrape_reddit_science():
-	'''Scrape the fist 10 posts in r/ science's Hot section 
-	using Reddit's API.'''
+	"""
+	Scrape the fist 10 posts in r/ science's Hot section 
+	using Reddit's API.
+	"""
 
 	return_data = [['r/ Science:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('science')
@@ -159,8 +171,10 @@ def scrape_reddit_science():
 
 
 def scrape_reddit_tech():
-	'''Scrape the fist 10 posts in r/ technology's Hot section 
-	using Reddit's API.'''
+	"""
+	Scrape the fist 10 posts in r/ technology's Hot section 
+	using Reddit's API.
+	"""
 
 	return_data = [['r/ Technology:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('technology')
@@ -175,8 +189,10 @@ def scrape_reddit_tech():
 
 
 def scrape_reddit_world_news():
-	'''Scrape the fist 10 posts in r/ worldnews's Hot section
-	using Reddit's API.'''
+	"""
+	Scrape the fist 10 posts in r/ worldnews's Hot section
+	using Reddit's API.
+	"""
 
 	return_data = [['r/ WorldNews:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('worldnews')
@@ -189,8 +205,10 @@ def scrape_reddit_world_news():
 
 
 def scrape_reddit_eli5():
-	'''Scrape the fist 7 posts in r/ explainlikeimfive's 
-	Hot section using Reddit's API.'''
+	"""
+	Scrape the fist 7 posts in r/ explainlikeimfive's 
+	Hot section using Reddit's API.
+	"""
 
 	return_data = [['r/ ExplainLikeI\'mFive:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('explainlikeimfive')
@@ -205,8 +223,10 @@ def scrape_reddit_eli5():
 
 
 def scrape_reddit_til():
-	'''Scrape the fist 7 posts in r/ todayilearned's Hot section
-	using Reddit's API.'''
+	"""
+	Scrape the fist 7 posts in r/ todayilearned's Hot section
+	using Reddit's API.
+	"""
 
 	return_data = [['r/ TodayILearned:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('todayilearned')
@@ -219,8 +239,10 @@ def scrape_reddit_til():
 
 
 def scrape_reddit_python():
-	'''Scrape the fist 5 posts in r/ Python's Hot section
-	using Reddit's API.'''
+	"""
+	Scrape the fist 5 posts in r/ Python's Hot section
+	using Reddit's API.
+	"""
 
 	return_data = [['r/ Python:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('Python')
@@ -235,8 +257,10 @@ def scrape_reddit_python():
 
 
 def scrape_reddit_learn_prog():
-	'''Scrape the fist 5 posts in r/ learnprogramming's Hot section
-	using Reddit's API.'''
+	"""
+	Scrape the fist 5 posts in r/ learnprogramming's Hot section
+	using Reddit's API.
+	"""
 
 	return_data = [['r/ learnprogramming:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('learnprogramming')
@@ -251,8 +275,10 @@ def scrape_reddit_learn_prog():
 
 
 def scrape_reddit_educational_gifs():
-	'''Scrape the fist 7 posts in r/ educationalgifs' Hot section
-	using Reddit's API.'''
+	"""
+	Scrape the fist 7 posts in r/ educationalgifs' Hot section
+	using Reddit's API.
+	"""
 
 	return_data = [['r/ educationalgifs:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('educationalgifs')
@@ -263,9 +289,26 @@ def scrape_reddit_educational_gifs():
 
 	return return_data
 
+def scrape_xkcd():
+	"""
+	Scrape the latest comic (image file) and description from xkcd.com.
+	"""
+	get_comic = get("https://xkcd.com/info.0.json").json()
+	img_source = get_comic["img"]
+	img_title = get_comic["safe_title"]
+	img_desc = get_comic["alt"]
+
+	article_html = f"\n\t\t\t<img src={img_source} id='xkcd-comic' />"
+
+	# Return a tuple: the first item is the HTML to be used for the xkcd comic\
+	# article; the second item is the title of the comic (a normal string); the\
+	# third item is the comic URL
+	return (article_html, img_title, img_source)
+
+
 
 def send_emails(email_subject, email_body):
-	'''
+	"""
 	Send an email via Gmail with scraped news to a specified
 	email account.
 
@@ -275,7 +318,7 @@ def send_emails(email_subject, email_body):
 		The email subject.
 	email_body : string
 		A string of HTML with the email content (body).
-	'''
+	"""
 
 	# Who will receive the email
 	receiver = "jose.fernando.costa.1998@gmail.com"
@@ -325,27 +368,26 @@ def main():
 	ref_counter = 0
 	# Loop through a list of the names of the websites scraped to create the top\
 	# navigation menu for the page
-	for website in ["Eurogamer.net", "Wccftech", "BBC World News", "Science Magazine", "r/ Science", "r/ Technology", "r/ WorldNews", "r/ Python", "r/ learnprogramming", "r/ educationalgifs", "r/ ExplainLikeI'mFive", "r/ TodayILearned"]:
+	for website in ["xkcd", "Eurogamer.net", "Wccftech", "BBC World News", "Science Magazine", "r/ Science", "r/ Technology", "r/ WorldNews", "r/ Python", "r/ learnprogramming", "r/ educationalgifs", "r/ ExplainLikeI'mFive", "r/ TodayILearned"]:
 		# If it's the first website, then open a new <div> for making the reference
 		if ref_counter == 0:
 			html_string += "\n\t\t\t<div id='column1'>"
 			html_string += f"\n\t\t\t\t\t<p class='section-nav-button'><a href='#{website}'>{website}</a></p>"
 		# Every four references we need to open a new <div>
-		elif ref_counter%4 == 0:
-			html_string += f"\n\t\t\t<div id='column{str(int(ref_counter/4)+1)}'>"
+		elif ref_counter%5 == 0:
+			html_string += f"\n\t\t\t<div id='column{str(int(ref_counter/5)+1)}'>"
 			html_string += f"\n\t\t\t\t\t<p class='section-nav-button'><a href='#{website}'>{website}</a></p>"
 		else:
 			html_string += f"\n\t\t\t\t\t<p class='section-nav-button'><a href='#{website}'>{website}</a></p>"
 		# Starting at the fourth (index 3) reference, every four references we need to close\
 		# a <div>
-		if ref_counter in range(3, 50, 4):
+		if ref_counter in range(4, 50, 5):
 			html_string += "\n\t\t\t</div>"
 		
 		# Increment the reference counter
 		ref_counter += 1
 	# Close the navigation menu
 	html_string += '''\n\t\t\t<div class="clear" />
-
 		</nav>'''
 
 	'''
@@ -418,6 +460,17 @@ def main():
 				scrape_reddit_educational_gifs, scrape_eurogamer, scrape_wccftech, 
 				scrape_reddit_eli5, scrape_reddit_til
 	]
+
+
+	# Before scraping all the websites for news, scrape xkdc.com individually\
+	# given that the result will be an image, not a list of news titles
+	scraped_xkcd = scrape_xkcd()
+	# Create the HTML for the .html file
+	html_string += f"\n\n\t<article id=\"xkcd\" title=\"{scraped_xkcd[1]}\">{scraped_xkcd[0]}\n\t\t</article>"
+	# Add the "Page Top" anchor
+	html_string += "\n\t\t<p class=\"top-anchor\"><a href=\"#page-top\">Page Top</a></p>\n"
+	# Create the HTML for the email body
+	mail_html_string += f"\n\t\t<h3>xkcd</h3>\n\t\t\t<ul><li><a href=\"{scraped_xkcd[2]}\">{scraped_xkcd[1]}</a></li></ul>"
 
 	# Loop through the list of functions (in other words, scrape each\
 	# website)

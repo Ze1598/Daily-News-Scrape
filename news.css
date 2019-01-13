@@ -22,7 +22,7 @@ header {
     width: 22%;
     box-shadow: 5px 5px;
     border-radius: 8px;
-    margin-left: 10px;
+    margin-left: 15px;
     border: 2px solid white;
 }
 
@@ -64,6 +64,7 @@ nav {
     border-radius: 8px;
     margin: 15px 15px 25px 15px;
     width: 60%;
+    height: 280px;
     padding-bottom: 15px;
 }
 
@@ -108,7 +109,22 @@ article:before {
     margin-top: 15px;
 }
 
-/* Style each div of news that doesn't have a "page-header" class */
+/* Specifically style the xkcd <article> due to the different title */
+#xkcd:before {
+    content: attr(id) " - " attr(title);
+    font-size: 150%;
+    font-weight: bold;
+    margin-left: 25px;
+    margin-top: 15px;
+}
+
+/* Style the xkcd image */
+#xkcd img {
+    margin: 16px 0px 16px 10px;
+    transform: scale(0.8, 0.8);
+}
+
+/* Style each <div> of news that doesn't have a "page-header" class */
 article {
     /* background: linear-gradient(135deg, #091dd1, #0d0083); */
     background-color: #4b59d4;
