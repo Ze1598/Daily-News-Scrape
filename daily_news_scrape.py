@@ -28,7 +28,7 @@ import Ze1598Bot_credentials as cred
 # Used to open URLs in the default browser
 # import webbrowser
 
-def scrape_eurogamer():
+def scrape_eurogamer ():
 	"""
 	Scrape Eurogamer.net today's news.
 	"""
@@ -52,12 +52,12 @@ def scrape_eurogamer():
 		except:
 			title = article.p.a.text.strip()
 
-		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank"><span class="remove-anchor-style">{title}</span></a></li>')
 
 	return return_data
 
 
-def scrape_wccftech():
+def scrape_wccftech ():
 	"""
 	Scrape Wccftech's top 6 featured news.
 	"""
@@ -70,7 +70,7 @@ def scrape_wccftech():
 		article = soup.find('a', class_='featured featured-'+str(i))
 		title = article.h2.text
 		url = article['href']
-		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank"><span class="remove-anchor-style">{title}</span></a></li>')
 
 	# Scrape the first news from the Hardware, the Gaming and the Mobile sections
 	# These are simply the first articles located in different <div> elements (\
@@ -79,12 +79,12 @@ def scrape_wccftech():
 	for article in ["sticky-hardware", "sticky-gaming", "sticky-mobile"]:
 		title = soup.find('section', class_=article).find('li', class_="first").h3.a.text.strip()
 		url = soup.find('section', class_=article).find('li', class_="first").h3.a["href"].strip()
-		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank"><span class="remove-anchor-style">{title}</span></a></li>')
 
 	return return_data
 
 
-def scrape_jornal_noticias():
+def scrape_jornal_noticias ():
 	"""
 	Scrape Jornal de Notícias.net today's news.
 	"""
@@ -96,12 +96,12 @@ def scrape_jornal_noticias():
 	for article in soup.find_all('article', class_ = 't-g1-l1-am1'):
 		url = 'https://www.jn.pt' + str(article.header.h2.a['href'])
 		title = article.header.h2.text.strip()
-		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank"><span class="remove-anchor-style">{title}</span></a></li>')
 
 	return return_data
 
 
-def scrape_bbc_news():
+def scrape_bbc_news ():
 	"""
 	Scrape the top 6 featured news from BBC World News.
 	"""
@@ -114,7 +114,7 @@ def scrape_bbc_news():
 	top_article = soup.find('div', class_="buzzard-item")
 	title = top_article.a.h3.text.strip()
 	url = 'http://www.bbc.com' + top_article.a['href'].strip()
-	return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
+	return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank"><span class="remove-anchor-style">{title}</span></a></li>')
 
 
 	# First and second columns (each contains a single news article)
@@ -122,19 +122,19 @@ def scrape_bbc_news():
 	for article in column:
 		title = article.a.h3.text.strip()
 		url = 'http://www.bbc.com' + article.a['href'].strip()
-		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank"><span class="remove-anchor-style">{title}</span></a></li>')
 	
 	# Third column (contains 3 news)
 	column = soup.find('div', class_='pigeon__column pigeon__column--b').find_all('div', class_='pigeon-item faux-block-link')
 	for article in column:
 		title = article.a.h3.text.strip()
 		url = 'http://www.bbc.com' + article.a['href'].strip()
-		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank"><span class="remove-anchor-style">{title}</span></a></li>')
 	
 	return return_data
 
 
-def scrape_science_mag():
+def scrape_science_mag ():
 	"""
 	Scrape the first page of Latest News from Science Magazine.
 	"""
@@ -148,12 +148,12 @@ def scrape_science_mag():
 	for post in articles:
 		title = post.article.h2.a.text.strip()
 		url = 'http://www.sciencemag.org' + post.article.h2.a['href']
-		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank">{title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank"><span class="remove-anchor-style">{title}</span></a></li>')
 
 	return return_data
 
 
-def scrape_reddit_science():
+def scrape_reddit_science ():
 	"""
 	Scrape the fist 10 posts in r/ science's Hot section 
 	using Reddit's API.
@@ -164,13 +164,13 @@ def scrape_reddit_science():
 
 	first_n_hot = list(subreddit_instance.hot(limit=10))
 	for post in first_n_hot:
-		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
 	return return_data
 
 
 
-def scrape_reddit_tech():
+def scrape_reddit_tech ():
 	"""
 	Scrape the fist 10 posts in r/ technology's Hot section 
 	using Reddit's API.
@@ -183,12 +183,12 @@ def scrape_reddit_tech():
 	# Delete subreddit-specific posts
 	del first_n_hot[0:2]
 	for post in first_n_hot:
-		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
 	return return_data
 
 
-def scrape_reddit_world_news():
+def scrape_reddit_world_news ():
 	"""
 	Scrape the fist 10 posts in r/ worldnews's Hot section
 	using Reddit's API.
@@ -199,12 +199,12 @@ def scrape_reddit_world_news():
 
 	first_n_hot = list(subreddit_instance.hot(limit=10))
 	for post in first_n_hot:
-		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
 	return return_data 
 
 
-def scrape_reddit_eli5():
+def scrape_reddit_eli5 ():
 	"""
 	Scrape the fist 7 posts in r/ explainlikeimfive's 
 	Hot section using Reddit's API.
@@ -217,12 +217,12 @@ def scrape_reddit_eli5():
 	# Delete subreddit-specific posts
 	del first_n_hot[0]
 	for post in first_n_hot:
-		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
 	return return_data
 
 
-def scrape_reddit_til():
+def scrape_reddit_til ():
 	"""
 	Scrape the fist 7 posts in r/ todayilearned's Hot section
 	using Reddit's API.
@@ -233,12 +233,12 @@ def scrape_reddit_til():
 
 	first_n_hot = list(subreddit_instance.hot(limit=5))
 	for post in first_n_hot:
-		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
 	return return_data
 
 
-def scrape_reddit_python():
+def scrape_reddit_python ():
 	"""
 	Scrape the fist 5 posts in r/ Python's Hot section
 	using Reddit's API.
@@ -251,12 +251,12 @@ def scrape_reddit_python():
 	# Delete subreddit-specific posts
 	del first_n_hot[0:2]
 	for post in first_n_hot:
-		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
 	return return_data
 
 
-def scrape_reddit_learn_prog():
+def scrape_reddit_learn_prog ():
 	"""
 	Scrape the fist 5 posts in r/ learnprogramming's Hot section
 	using Reddit's API.
@@ -269,12 +269,12 @@ def scrape_reddit_learn_prog():
 	# Delete subreddit-specific posts
 	del first_n_hot[0:2]
 	for post in first_n_hot:
-		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
 	return return_data
 
 
-def scrape_reddit_educational_gifs():
+def scrape_reddit_educational_gifs ():
 	"""
 	Scrape the fist 7 posts in r/ educationalgifs' Hot section
 	using Reddit's API.
@@ -285,26 +285,90 @@ def scrape_reddit_educational_gifs():
 
 	first_n_hot = list(subreddit_instance.hot(limit=7))
 	for post in first_n_hot:
-		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank">{post.title}</a></li>')
+		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
 	return return_data
 
-def scrape_xkcd():
+
+def scrape_xkcd (img_file=False):
 	"""
 	Scrape the latest comic (image file) and description from xkcd.com.
+
+	Parameters
+	---------
+	img_file : bool
+		True if the function should return an <img> element with the comic
+		itself; else returns a <li> element with the comic's title as an
+		anchor to the comic's URL.
 	"""
-	get_comic = get("https://xkcd.com/info.0.json").json()
+	
+	original_target = "https://xkcd.com"
+	target = "https://xkcd.com/info.0.json"
+	get_comic = get(target).json()
 	img_source = get_comic["img"]
 	img_title = get_comic["safe_title"]
 	img_desc = get_comic["alt"]
 
-	article_html = f"\n\t\t\t<img src={img_source} id='xkcd-comic' />"
+	# If we want to display the comic itself in the page, then return an <img>\
+	# HTML element with the comic's .png file
+	if (img_file == True):
+		article_html = f"\n\t\t\t<img src={img_source} id='xkcd-comic' />"
+		# Return a tuple: the first item is the HTML to be used for the xkcd comic\
+		# article; the second item is the title of the comic (a normal string); the\
+		# third item is the comic URL
+		return (article_html, img_title, img_source)
+	# If we just want a reference to the comic, return a <li> element
+	else:
+		return f'\n\t\t\t<li><a href="{original_target}" target="_blank"><span class="remove-anchor-style">xkcd: {img_title}</span></a></li>'
 
-	# Return a tuple: the first item is the HTML to be used for the xkcd comic\
-	# article; the second item is the title of the comic (a normal string); the\
-	# third item is the comic URL
-	return (article_html, img_title, img_source)
 
+def scrape_bluechair ():
+	'''
+	Scrape the URL for the latest Bluechair web comic.
+	'''
+
+	target = get("https://www.webtoons.com/en/comedy/bluechair/list?title_no=199")
+	soup = BeautifulSoup(target.content, "html5lib")
+	# All the comics (of the first page) are located inside a <div> with a class\
+	# `detail_lst`
+	comics_list = soup.find("div", class_="detail_lst")
+
+	# Both the title and the comic's URL are, in the context of previous <div>,\
+	# located inside the first <ul>, then inside the first <li> (since we want the\
+	# most recent comic), then inside the first <a>
+
+	# Inside that <a> element, the title is in the <span> with a class `subj`
+	comic_title = comics_list.ul.li.a.find("span", class_="subj").span.text.strip()
+	# The title is the value of the <a>'s `href` attribute
+	comic_url = comics_list.ul.li.a["href"]
+	
+
+	return f'\n\t\t\t<li><a href="{comic_url}" target="_blank"><span class="remove-anchor-style">Bluechair: {comic_title}</span></a></li>'
+
+
+def scrape_web_comics ():
+	'''
+	Function responsible for calling the necessary functions to scrape web comics.
+	This function by itself doesn't do any scraping, only organizes what is scraped,
+	in the regards of web comics.
+
+	Parameters
+	----------
+	None
+
+	Returns
+	-------
+	return_data : list
+		A two-list list: the first list contains the title for the news section
+		in the website; each item in the section list is a <li> HTML element,
+		which corresponds to a single web comic.
+	'''
+
+	return_data = [['Web Comics:\n'], []]
+	scrape_comics_funcs = [scrape_xkcd, scrape_bluechair]
+	return_data[1] = [scrape_comics_func() for scrape_comics_func in scrape_comics_funcs]
+
+	return return_data
 
 
 def send_emails(email_subject, email_body):
@@ -342,9 +406,12 @@ def main():
 
 	# Define the name of the file to be written
 	if hour < 12:
-	    file_name = f'{today}_{hour}AM_news'
+		file_name = f'{today}_{hour}AM_news'
 	elif hour >= 12:
-	    file_name = f'{today}_{hour-12}PM_news'
+		file_name = f'{today}_{hour-12}PM_news'
+
+	file_name_parts = file_name.split("_")
+	news_time = f"{file_name_parts[0]} - {file_name_parts[1]} News"
 
 	# The string to hold the HTML to be written to the file
 	# This includes the whole <head> and the page's <header>
@@ -359,7 +426,7 @@ def main():
 	<body>
 		<header class="page-header" id="page-top">
 			<h1 class="title">Daily News Scrape</h1>
-			<h2 class="date">{file_name}</h2>
+			<h2 class="date">{news_time}</h2>
 		</header>
 		<nav id="nav-buttons">'''
 
@@ -368,17 +435,17 @@ def main():
 	ref_counter = 0
 	# Loop through a list of the names of the websites scraped to create the top\
 	# navigation menu for the page
-	for website in ["xkcd", "Eurogamer.net", "Wccftech", "BBC World News", "Science Magazine", "r/ Science", "r/ Technology", "r/ WorldNews", "r/ Python", "r/ learnprogramming", "r/ educationalgifs", "r/ ExplainLikeI'mFive", "r/ TodayILearned"]:
+	for website in ["Web Comics", "Eurogamer.net", "Wccftech", "BBC World News", "Science Magazine", "r/ Science", "r/ Technology", "r/ WorldNews", "r/ Python", "r/ learnprogramming", "r/ educationalgifs", "r/ ExplainLikeI'mFive", "r/ TodayILearned"]:
 		# If it's the first website, then open a new <div> for making the reference
 		if ref_counter == 0:
 			html_string += "\n\t\t\t<div id='column1'>"
-			html_string += f"\n\t\t\t\t\t<p class='section-nav-button'><a href='#{website}'>{website}</a></p>"
+			html_string += f"\n\t\t\t\t\t<p class='section-nav-button'><a href='#{website}'><span class='remove-anchor-style'>{website}</span></a></p>"
 		# Every four references we need to open a new <div>
 		elif ref_counter%5 == 0:
 			html_string += f"\n\t\t\t<div id='column{str(int(ref_counter/5)+1)}'>"
-			html_string += f"\n\t\t\t\t\t<p class='section-nav-button'><a href='#{website}'>{website}</a></p>"
+			html_string += f"\n\t\t\t\t\t<p class='section-nav-button'><a href='#{website}'><span class='remove-anchor-style'>{website}</span></a></p>"
 		else:
-			html_string += f"\n\t\t\t\t\t<p class='section-nav-button'><a href='#{website}'>{website}</a></p>"
+			html_string += f"\n\t\t\t\t\t<p class='section-nav-button'><a href='#{website}'><span class='remove-anchor-style'>{website}</span></a></p>"
 		# Starting at the fourth (index 3) reference, every four references we need to close\
 		# a <div>
 		if ref_counter in range(4, 50, 5):
@@ -390,32 +457,6 @@ def main():
 	html_string += '''\n\t\t\t<div class="clear" />
 		</nav>'''
 
-	'''
-			<div id="column1">
-				<p class="section-nav-button"><a href="#Eurogamer.net">Eurogamer.net</a></p>
-				<p class="section-nav-button"><a href="#Wccftech">Wccftech</a></p>
-				<p class="section-nav-button"><a href="#Jornal de Notícias">Jornal de Notícias</a></p>
-				<p class="section-nav-button"><a href="#BBC World News">BBC World News</a></p>
-			</div>
-        	
-        	<div id="column2">
-				<p class="section-nav-button"><a href="#Science Magazine">Science Magazine</a></p>
-				<p class="section-nav-button"><a href="#r/ Technology">r/ Technology</a></p>
-				<p class="section-nav-button"><a href="#r/ WorldNews">r/ WorldNews</a></p>
-				<p class="section-nav-button"><a href="#r/ Python">r/ Python</a></p>
-			</div>
-
-			<div id="column3">
-				<p class="section-nav-button"><a href="#r/ learnprogramming">r/ learnprogramming</a></p>
-				<p class="section-nav-button"><a href="#r/ educationalgifs">r/ educationalgifs</a></p>
-				<p class="section-nav-button"><a href="#r/ ExplainLikeI'mFive">r/ ExplainLikeI'mFive</a></p>
-				<p class="section-nav-button"><a href="#r/ TodayILearned">r/ TodayILearned</a></p>
-			</div>
-
-			<div class="clear" />
-
-		</nav>
-	'''
 
 	# HTML to be used for the email to be sent
 	mail_html_string = f'''<!DOCTYPE html>
@@ -425,14 +466,15 @@ def main():
 		<style>
 			body {{
 				font-family:Lato,sans-serif; 
-				line-height:1.6; 
+				font-size: 175%;
+				font-weight: bold;				
 				width:70%;
 			}}
 		</style>
 	</head>
 	<body>
 	<h1>Daily News Scrape</h1>
-	<h2>{file_name}</h2>
+	<h2>{news_time}</h2>
 	'''
 
 	# Call each function to scrape data and save the returned\    
@@ -454,14 +496,14 @@ def main():
 	# returned by each function
 
 	# List of functions to be called/websites to be scraped
-	websites_list = [scrape_bbc_news,
+	websites_list = [scrape_web_comics, scrape_bbc_news,
 				scrape_science_mag, scrape_reddit_science, scrape_reddit_tech, 
 				scrape_reddit_world_news, scrape_reddit_python, scrape_reddit_learn_prog,
 				scrape_reddit_educational_gifs, scrape_eurogamer, scrape_wccftech, 
 				scrape_reddit_eli5, scrape_reddit_til
 	]
 
-
+	'''
 	# Before scraping all the websites for news, scrape xkdc.com individually\
 	# given that the result will be an image, not a list of news titles
 	scraped_xkcd = scrape_xkcd()
@@ -471,6 +513,7 @@ def main():
 	html_string += "\n\t\t<p class=\"top-anchor\"><a href=\"#page-top\">Page Top</a></p>\n"
 	# Create the HTML for the email body
 	mail_html_string += f"\n\t\t<h3>xkcd</h3>\n\t\t\t<ul><li><a href=\"{scraped_xkcd[2]}\">{scraped_xkcd[1]}</a></li></ul>"
+	'''
 
 	# Loop through the list of functions (in other words, scrape each\
 	# website)
@@ -496,7 +539,7 @@ def main():
 		# Close the <article>
 		html_string += '''\n\t\t\t</ul>
 		</article>
-		<p class="top-anchor"><a href="#page-top">Page Top</a></p>\n'''
+		<p class="top-anchor"><a href="#page-top"><span class="remove-anchor-style">Page Top</span></a></p>\n'''
 		# Close the list of news for the current website
 		mail_html_string += '''\n\t\t</ul>'''
 
@@ -522,10 +565,9 @@ def main():
 		f.write(html_string.encode("ISO-8859-1", errors="ignore"))
     
 	# Send the scraped news via email
-	# The first argument is the email subject (for this case it can be the same\
-	# as the filename of the created .html file) and the email body (the HTML\
-	# created using the `mail_html_string` variable)
-	send_emails(file_name, mail_html_string)
+	# The first argument is the email subject and the second is the email body\
+	# (the HTML created using the `mail_html_string` variable)
+	send_emails(news_time, mail_html_string)
 
 	# Start the HTML file (open it in the computer's default browser)
 	startfile(file_name+'.html')

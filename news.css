@@ -3,12 +3,17 @@
 
 /* Style all the page content */
 body {
-    background: #699ef4;
+    /*background: #699ef4;*/
+    background-image: url("https://images.pexels.com/photos/860379/pexels-photo-860379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
     font-family: Lato,sans-serif;
 }
 
 .clear {
     clear: both;
+}
+
+.remove-anchor-style {
+    color: black;
 }
 
 /*---------------------------------------------------------------*/
@@ -19,6 +24,8 @@ body {
 
 /* Style the header: the title and the date */
 header {
+    /*background-color: #4b59d4;*/
+    background-color: #8e684e;
     width: 22%;
     box-shadow: 5px 5px;
     border-radius: 8px;
@@ -58,9 +65,9 @@ nav:before {
 
 /* Format the <nav> to look like the <article>s */
 nav {
-    background-color: #4b59d4;
+    background-color: #8e684e;
     border: 2px solid white;
-    box-shadow: 7px 7px;
+    box-shadow: 5px 5px;
     border-radius: 8px;
     margin: 15px 15px 25px 15px;
     width: 60%;
@@ -85,7 +92,7 @@ nav {
 /* Adjust the <nav>'s <p>s to make them look like the
     ones from the <article>s */
 nav p {
-    background-color: #e9e92d;
+    background-color: #c9c9c9;
     border: 1px solid white;
     font-size: 115%;
     margin: 10px;
@@ -109,6 +116,28 @@ article:before {
     margin-top: 15px;
 }
 
+/* Style each <div> of news that doesn't have a "page-header" class */
+article {
+    /* background: linear-gradient(135deg, #091dd1, #0d0083); */
+    background-color: #8e684e;
+    border: 2px solid white;
+    border-radius: 5px;
+    box-shadow: 5px 5px;
+    margin: 15px;
+    width: 60%;
+    padding: 15px 0px 7px 0px;
+}
+
+/* Style each news title, which are list items with no bullet */
+li {
+    background-color: #c9c9c9;
+    border: 1px solid white;
+    font-size: 115%;
+    margin: 10px;
+    width: 85%;
+    padding: 5px;
+}
+
 /* Specifically style the xkcd <article> due to the different title */
 #xkcd:before {
     content: attr(id) " - " attr(title);
@@ -124,36 +153,16 @@ article:before {
     transform: scale(0.8, 0.8);
 }
 
-/* Style each <div> of news that doesn't have a "page-header" class */
-article {
-    /* background: linear-gradient(135deg, #091dd1, #0d0083); */
-    background-color: #4b59d4;
-    border: 2px solid white;
-    border-radius: 5px;
-    box-shadow: 7px 7px;
-    margin: 15px;
-    width: 60%;
-    padding: 15px 0px 7px 0px;
-}
-
-/* Style each news title, which are list items with no bullet */
-li {
-    background-color: #e9e92d;
-    border: 1px solid white;
-    font-size: 115%;
-    margin: 10px;
-    width: 85%;
-    padding: 5px;
-}
-
 .top-anchor {
-    background-color: #e9e92d;
+    background-color: #c9c9c9;
     border: 1px solid white;
+    border-radius: 5px;
     width: 6%;
+    padding: 7px;
     text-align: center;
     float: right;
     position: relative;
-    top: -3em;
+    top: -4em;
     left: -25em;
 }
 
