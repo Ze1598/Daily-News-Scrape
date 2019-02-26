@@ -17,6 +17,8 @@ I expect to keep updating this repo over time, as I make changes to the page's s
 
 * (jan 24th 2019) Updated the first news section to be "Web Comics" instead, which will be used to link to the latest web comics of select sources (xkcd and Bluechair for now); also largely updated the color scheme and background for the whole page
 
+* (feb 26th 2019) Updated the page with a couple of new news sources. I also changed the order of the news slightly.
+
 
 ### External references:
 
