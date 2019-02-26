@@ -290,6 +290,38 @@ def scrape_reddit_educational_gifs ():
 	return return_data
 
 
+def scrape_reddit_wallpapers ():
+	"""
+	Scrape the fist 10 posts in r/ wallpapers' Hot section
+	using Reddit's API.
+	"""
+
+	return_data = [['r/ wallpapers:\n'], []]
+	subreddit_instance = reddit_instance.subreddit('wallpapers')
+
+	first_n_hot = list(subreddit_instance.hot(limit=10))
+	for post in first_n_hot:
+		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
+
+	return return_data
+
+
+def scrape_reddit_coolguides ():
+	"""
+	Scrape the fist 10 posts in r/ coolguides' Hot section
+	using Reddit's API.
+	"""
+
+	return_data = [['r/ coolguides:\n'], []]
+	subreddit_instance = reddit_instance.subreddit('coolguides')
+
+	first_n_hot = list(subreddit_instance.hot(limit=10))
+	for post in first_n_hot:
+		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
+
+	return return_data
+
+
 def scrape_xkcd (img_file=False):
 	"""
 	Scrape the latest comic (image file) and description from xkcd.com.
@@ -435,7 +467,7 @@ def main():
 	ref_counter = 0
 	# Loop through a list of the names of the websites scraped to create the top\
 	# navigation menu for the page
-	for website in ["Web Comics", "Eurogamer.net", "Wccftech", "BBC World News", "Science Magazine", "r/ Science", "r/ Technology", "r/ WorldNews", "r/ Python", "r/ learnprogramming", "r/ educationalgifs", "r/ ExplainLikeI'mFive", "r/ TodayILearned"]:
+	for website in ["Web Comics", "Eurogamer.net", "Wccftech", "BBC World News", "Science Magazine", "r/ Science", "r/ Technology", "r/ WorldNews", "r/ Python", "r/ learnprogramming", "r/ educationalgifs", "r/ wallpapers", "r/ ExplainLikeI'mFive", "r/ TodayILearned", "r/ coolguides"]:
 		# If it's the first website, then open a new <div> for making the reference
 		if ref_counter == 0:
 			html_string += "\n\t\t\t<div id='column1'>"
@@ -496,11 +528,15 @@ def main():
 	# returned by each function
 
 	# List of functions to be called/websites to be scraped
-	websites_list = [scrape_web_comics, scrape_bbc_news,
-				scrape_science_mag, scrape_reddit_science, scrape_reddit_tech, 
-				scrape_reddit_world_news, scrape_reddit_python, scrape_reddit_learn_prog,
-				scrape_reddit_educational_gifs, scrape_eurogamer, scrape_wccftech, 
-				scrape_reddit_eli5, scrape_reddit_til
+	websites_list = [
+				scrape_web_comics, scrape_bbc_news,
+				scrape_reddit_science, scrape_reddit_tech, 
+				scrape_reddit_world_news, scrape_reddit_educational_gifs,
+				scrape_reddit_python, scrape_reddit_learn_prog,
+				scrape_reddit_coolguides, scrape_science_mag,
+				scrape_reddit_wallpapers, scrape_eurogamer, scrape_wccftech, 
+				scrape_reddit_eli5, scrape_reddit_til,
+				
 	]
 
 	'''
