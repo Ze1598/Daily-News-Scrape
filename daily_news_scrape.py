@@ -155,14 +155,14 @@ def scrape_science_mag ():
 
 def scrape_reddit_science ():
 	"""
-	Scrape the fist 10 posts in r/ science's Hot section 
+	Scrape the fist 7 posts in r/ science's Hot section 
 	using Reddit's API.
 	"""
 
 	return_data = [['r/ Science:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('science')
 
-	first_n_hot = list(subreddit_instance.hot(limit=10))
+	first_n_hot = list(subreddit_instance.hot(limit=7))
 	for post in first_n_hot:
 		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
@@ -172,14 +172,14 @@ def scrape_reddit_science ():
 
 def scrape_reddit_tech ():
 	"""
-	Scrape the fist 10 posts in r/ technology's Hot section 
+	Scrape the fist 7 posts in r/ technology's Hot section 
 	using Reddit's API.
 	"""
 
 	return_data = [['r/ Technology:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('technology')
 
-	first_n_hot = list(subreddit_instance.hot(limit=12))
+	first_n_hot = list(subreddit_instance.hot(limit=9))
 	# Delete subreddit-specific posts
 	del first_n_hot[0:2]
 	for post in first_n_hot:
@@ -190,14 +190,14 @@ def scrape_reddit_tech ():
 
 def scrape_reddit_world_news ():
 	"""
-	Scrape the fist 10 posts in r/ worldnews's Hot section
+	Scrape the fist 8 posts in r/ worldnews's Hot section
 	using Reddit's API.
 	"""
 
 	return_data = [['r/ WorldNews:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('worldnews')
 
-	first_n_hot = list(subreddit_instance.hot(limit=10))
+	first_n_hot = list(subreddit_instance.hot(limit=8))
 	for post in first_n_hot:
 		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
@@ -276,14 +276,14 @@ def scrape_reddit_learn_prog ():
 
 def scrape_reddit_educational_gifs ():
 	"""
-	Scrape the fist 7 posts in r/ educationalgifs' Hot section
+	Scrape the fist 5 posts in r/ educationalgifs' Hot section
 	using Reddit's API.
 	"""
 
 	return_data = [['r/ educationalgifs:\n'], []]
 	subreddit_instance = reddit_instance.subreddit('educationalgifs')
 
-	first_n_hot = list(subreddit_instance.hot(limit=7))
+	first_n_hot = list(subreddit_instance.hot(limit=5))
 	for post in first_n_hot:
 		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
@@ -438,11 +438,11 @@ def main():
 
 	# Define the name of the file to be written
 	if hour < 12:
-		file_name = f'{today}_{hour}AM_news'
+		full_date = f'{today}_{hour}AM_news'
 	elif hour >= 12:
-		file_name = f'{today}_{hour-12}PM_news'
+		full_date = f'{today}_{hour-12}PM_news'
 
-	file_name_parts = file_name.split("_")
+	file_name_parts = full_date.split("_")
 	news_time = f"{file_name_parts[0]} - {file_name_parts[1]} News"
 
 	# The string to hold the HTML to be written to the file
@@ -467,7 +467,7 @@ def main():
 	ref_counter = 0
 	# Loop through a list of the names of the websites scraped to create the top\
 	# navigation menu for the page
-	for website in ["Web Comics", "Eurogamer.net", "Wccftech", "BBC World News", "Science Magazine", "r/ Science", "r/ Technology", "r/ WorldNews", "r/ Python", "r/ learnprogramming", "r/ educationalgifs", "r/ wallpapers", "r/ ExplainLikeI'mFive", "r/ TodayILearned", "r/ coolguides"]:
+	for website in ["Web Comics", "Wccftech", "BBC World News", "r/ Science", "r/ Technology", "r/ WorldNews", "r/ Python", "r/ learnprogramming", "r/ educationalgifs", "r/ ExplainLikeI'mFive","r/ coolguides"]:
 		# If it's the first website, then open a new <div> for making the reference
 		if ref_counter == 0:
 			html_string += "\n\t\t\t<div id='column1'>"
@@ -533,10 +533,8 @@ def main():
 				scrape_reddit_science, scrape_reddit_tech, 
 				scrape_reddit_world_news, scrape_reddit_educational_gifs,
 				scrape_reddit_python, scrape_reddit_learn_prog,
-				scrape_reddit_coolguides, scrape_science_mag,
-				scrape_reddit_wallpapers, scrape_eurogamer, scrape_wccftech, 
-				scrape_reddit_eli5, scrape_reddit_til,
-				
+				scrape_reddit_coolguides, scrape_wccftech,
+				scrape_reddit_eli5
 	]
 
 	'''
@@ -589,7 +587,8 @@ def main():
 	mail_html_string += '''\n\t</body>
 
 </html>'''
-
+	
+	file_name = "Daily News Scrape"
 	# Write the scraped information to an HTML file
 	with open(file_name+'.html','wb') as f:
 		'''

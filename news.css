@@ -5,7 +5,7 @@
 body {
     /*background: #699ef4;*/
     background-image: url("https://images.pexels.com/photos/860379/pexels-photo-860379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
-    font-family: Lato,sans-serif;
+    font-family: Robato,sans-serif;
 }
 
 .clear {
@@ -14,6 +14,10 @@ body {
 
 .remove-anchor-style {
     color: black;
+}
+/* Remove the underline of all anchor tags */
+a {
+    text-decoration: none;
 }
 
 /*---------------------------------------------------------------*/
@@ -136,6 +140,8 @@ li {
     margin: 10px;
     width: 85%;
     padding: 5px;
+    box-shadow: 2px 2px black;
+    border-radius: 5px;
 }
 
 /* Specifically style the xkcd <article> due to the different title */
@@ -155,8 +161,9 @@ li {
 
 .top-anchor {
     background-color: #c9c9c9;
-    border: 1px solid white;
+    border: 2px solid white;
     border-radius: 5px;
+    box-shadow: 3px 3px black;
     width: 6%;
     padding: 7px;
     text-align: center;

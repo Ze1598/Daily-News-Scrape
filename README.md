@@ -19,6 +19,8 @@ I expect to keep updating this repo over time, as I make changes to the page's s
 
 * (feb 26th 2019) Updated the page with a couple of new news sources. I also changed the order of the news slightly.
 
+* (apr 13th 2019) Updated the page's CSS, removed some news sources and changed the name of the output file so now it is always "Daily News Scrape.html".
+
 
 ### External references:
 
