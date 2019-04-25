@@ -402,6 +402,29 @@ def scrape_web_comics ():
 
 	return return_data
 
+def scrape_hacker_news ():
+	'''
+	Scrape the top 10 stories from Hacker News.
+
+	Parameters
+	----------
+	None
+
+	Returns
+	-------
+	return_data : list
+		A two-item list where the first item is a list with a string to be\
+		used as the header of the news section; the second is a list of\
+		<li> elements, that is, the actual news.
+	'''
+	return_data = [['Hacker News:\n'], []]
+	top_stories = get("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").json()
+	for i in range(10):
+		target_story = get(f"https://hacker-news.firebaseio.com/v0/item/{top_stories[i]}.json?print=pretty").json()
+		return_data[1].append(f'\n\t\t\t<li><a href="{target_story["url"]}" target="_blank"><span class="remove-anchor-style">{target_story["title"]}</span></a></li>')
+
+	return return_data
+
 
 def send_emails(email_subject, email_body):
 	"""
@@ -430,13 +453,15 @@ def send_emails(email_subject, email_body):
 	return None
 
 
+
 def main():
 	# Get today's date
 	today = date.today()
 	# Get the current hour
 	hour = datetime.now().hour
 
-	# Define the name of the file to be written
+	# Create the name of the file to be written ("{day}_{hours} News")
+	# --------------------------------------------------------------
 	if hour < 12:
 		full_date = f'{today}_{hour}AM_news'
 	elif hour >= 12:
@@ -444,7 +469,11 @@ def main():
 
 	file_name_parts = full_date.split("_")
 	news_time = f"{file_name_parts[0]} - {file_name_parts[1]} News"
+	# --------------------------------------------------------------
 
+
+	# Create the beginning of the HTML string
+	# --------------------------------------------------------------
 	# The string to hold the HTML to be written to the file
 	# This includes the whole <head> and the page's <header>
 	html_string = f'''<!DOCTYPE html>
@@ -461,13 +490,20 @@ def main():
 			<h2 class="date">{news_time}</h2>
 		</header>
 		<nav id="nav-buttons">'''
+	# --------------------------------------------------------------
 
+	# Create the top navigation menu
+	# --------------------------------------------------------------
 	# Used to keep track of the number of references included in the HTML so far\
 	# (for the top navigation menu)
 	ref_counter = 0
 	# Loop through a list of the names of the websites scraped to create the top\
 	# navigation menu for the page
-	for website in ["Web Comics", "Wccftech", "BBC World News", "r/ Science", "r/ Technology", "r/ WorldNews", "r/ Python", "r/ learnprogramming", "r/ educationalgifs", "r/ ExplainLikeI'mFive","r/ coolguides"]:
+	for website in ["Web Comics", "Wccftech", "BBC World News", "r/ Science",\
+		"Hacker News", "r/ Technology", "r/ WorldNews", "r/ Python",\
+		"r/ learnprogramming", "r/ educationalgifs", "r/ ExplainLikeI'mFive",\
+		"r/ coolguides"]:
+
 		# If it's the first website, then open a new <div> for making the reference
 		if ref_counter == 0:
 			html_string += "\n\t\t\t<div id='column1'>"
@@ -488,9 +524,11 @@ def main():
 	# Close the navigation menu
 	html_string += '''\n\t\t\t<div class="clear" />
 		</nav>'''
+	# --------------------------------------------------------------
 
 
-	# HTML to be used for the email to be sent
+	# Start the HTML for the email body
+	# --------------------------------------------------------------
 	mail_html_string = f'''<!DOCTYPE html>
 <html>
 	<head>
@@ -508,13 +546,9 @@ def main():
 	<h1>Daily News Scrape</h1>
 	<h2>{news_time}</h2>
 	'''
+	# --------------------------------------------------------------
 
-	# Call each function to scrape data and save the returned\    
-	# results. Since the returned result for each function is a\
-	# tuple where the first item is a string to be written to the\
-	# file and the second is a mapping of the website's news\ 
-	# titles and URLs, update the contents of that dictionary
-	# to the 'news' dictionary.
+
 
 	# Call each function to scrape data from a specific website.
 	# Each function is responsible for scraping the news from one\
@@ -530,32 +564,23 @@ def main():
 	# List of functions to be called/websites to be scraped
 	websites_list = [
 				scrape_web_comics, scrape_bbc_news,
-				scrape_reddit_science, scrape_reddit_tech, 
-				scrape_reddit_world_news, scrape_reddit_educational_gifs,
-				scrape_reddit_python, scrape_reddit_learn_prog,
-				scrape_reddit_coolguides, scrape_wccftech,
-				scrape_reddit_eli5
+				scrape_reddit_science, scrape_hacker_news,
+				scrape_reddit_tech, scrape_reddit_world_news,
+				scrape_reddit_educational_gifs, scrape_reddit_python,
+				scrape_reddit_learn_prog, scrape_reddit_coolguides,
+				scrape_wccftech, scrape_reddit_eli5
 	]
 
-	'''
-	# Before scraping all the websites for news, scrape xkdc.com individually\
-	# given that the result will be an image, not a list of news titles
-	scraped_xkcd = scrape_xkcd()
-	# Create the HTML for the .html file
-	html_string += f"\n\n\t<article id=\"xkcd\" title=\"{scraped_xkcd[1]}\">{scraped_xkcd[0]}\n\t\t</article>"
-	# Add the "Page Top" anchor
-	html_string += "\n\t\t<p class=\"top-anchor\"><a href=\"#page-top\">Page Top</a></p>\n"
-	# Create the HTML for the email body
-	mail_html_string += f"\n\t\t<h3>xkcd</h3>\n\t\t\t<ul><li><a href=\"{scraped_xkcd[2]}\">{scraped_xkcd[1]}</a></li></ul>"
-	'''
 
+	# Scrape the data from each source and update the page's HTML
+	# --------------------------------------------------------------
 	# Loop through the list of functions (in other words, scrape each\
 	# website)
 	for website in websites_list:
 
 		# Call the function
 		scraped_data = website()
-        
+		
 		# Create the beginning of the <article>
 		html_string += f'''\n\n\t\t<article id="{scraped_data[0][0][:-2]}">
 			<ul type="none">'''
@@ -576,7 +601,10 @@ def main():
 		<p class="top-anchor"><a href="#page-top"><span class="remove-anchor-style">Page Top</span></a></p>\n'''
 		# Close the list of news for the current website
 		mail_html_string += '''\n\t\t</ul>'''
+	# --------------------------------------------------------------
 
+	# Finish the page's HTML and the email body
+	# --------------------------------------------------------------
 	# There's nothing more to add to the page, so close the <body> and\
 	# end the file (</html>) for both HTMLs
 	html_string += '''\n\t\t</body>
@@ -587,7 +615,10 @@ def main():
 	mail_html_string += '''\n\t</body>
 
 </html>'''
+	# --------------------------------------------------------------
 	
+	# Finally create the .html file
+	# --------------------------------------------------------------
 	file_name = "Daily News Scrape"
 	# Write the scraped information to an HTML file
 	with open(file_name+'.html','wb') as f:
@@ -598,11 +629,14 @@ def main():
 		# f.write(html_string.encode("ISO-8859-1", errors="ignore"))
 		'''
 		f.write(html_string.encode("ISO-8859-1", errors="ignore"))
-    
-	# Send the scraped news via email
+	# --------------------------------------------------------------
+	
+	# Send an email with the news
+	# --------------------------------------------------------------
 	# The first argument is the email subject and the second is the email body\
 	# (the HTML created using the `mail_html_string` variable)
 	send_emails(news_time, mail_html_string)
+	# --------------------------------------------------------------
 
 	# Start the HTML file (open it in the computer's default browser)
 	startfile(file_name+'.html')
