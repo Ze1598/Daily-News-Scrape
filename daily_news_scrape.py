@@ -101,39 +101,6 @@ def scrape_jornal_noticias ():
 	return return_data
 
 
-def scrape_bbc_news ():
-	"""
-	Scrape the top 6 featured news from BBC World News.
-	"""
-
-	return_data = [['BBC World News:\n'], []]
-	target = get('http://www.bbc.com/news/world')
-	soup = BeautifulSoup(target.content, 'html5lib')
-
-	# Article at the top
-	top_article = soup.find('div', class_="buzzard-item")
-	title = top_article.a.h3.text.strip()
-	url = 'http://www.bbc.com' + top_article.a['href'].strip()
-	return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank"><span class="remove-anchor-style">{title}</span></a></li>')
-
-
-	# First and second columns (each contains a single news article)
-	column = soup.find_all('div', class_='pigeon__column pigeon__column--a')
-	for article in column:
-		title = article.a.h3.text.strip()
-		url = 'http://www.bbc.com' + article.a['href'].strip()
-		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank"><span class="remove-anchor-style">{title}</span></a></li>')
-	
-	# Third column (contains 3 news)
-	column = soup.find('div', class_='pigeon__column pigeon__column--b').find_all('div', class_='pigeon-item faux-block-link')
-	for article in column:
-		title = article.a.h3.text.strip()
-		url = 'http://www.bbc.com' + article.a['href'].strip()
-		return_data[1].append(f'\n\t\t\t<li><a href="{url}" target="_blank"><span class="remove-anchor-style">{title}</span></a></li>')
-	
-	return return_data
-
-
 def scrape_science_mag ():
 	"""
 	Scrape the first page of Latest News from Science Magazine.
@@ -420,8 +387,17 @@ def scrape_hacker_news ():
 	return_data = [['Hacker News:\n'], []]
 	top_stories = get("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").json()
 	for i in range(10):
-		target_story = get(f"https://hacker-news.firebaseio.com/v0/item/{top_stories[i]}.json?print=pretty").json()
-		return_data[1].append(f'\n\t\t\t<li><a href="{target_story["url"]}" target="_blank"><span class="remove-anchor-style">{target_story["title"]}</span></a></li>')
+		# try/except clause for when posts don't have a URL because they are\
+		# posts in hacker news itself
+		try:
+			target_story = get(f"https://hacker-news.firebaseio.com/v0/item/{top_stories[i]}.json?print=pretty").json()
+			return_data[1].append(f'\n\t\t\t<li><a href="{target_story["url"]}" target="_blank"><span class="remove-anchor-style">{target_story["title"]}</span></a></li>')
+		# In cases where the JSON object doesn't have a URL key, create the\
+		# URL directly, but still request the JSON object to get the title
+		except:
+			target_story = get(f"https://hacker-news.firebaseio.com/v0/item/{top_stories[i]}.json?print=pretty").json()
+			story_url = f"https://news.ycombinator.com/item?id={top_stories[i]}"
+			return_data[1].append(f'\n\t\t\t<li><a href="{story_url}" target="_blank"><span class="remove-anchor-style">{target_story["title"]}</span></a></li>')
 
 	return return_data
 
@@ -499,7 +475,7 @@ def main():
 	ref_counter = 0
 	# Loop through a list of the names of the websites scraped to create the top\
 	# navigation menu for the page
-	for website in ["Web Comics", "Wccftech", "BBC World News", "r/ Science",\
+	for website in ["Web Comics", "Wccftech", "r/ Science",\
 		"Hacker News", "r/ Technology", "r/ WorldNews", "r/ Python",\
 		"r/ learnprogramming", "r/ educationalgifs", "r/ ExplainLikeI'mFive",\
 		"r/ coolguides"]:
@@ -563,8 +539,8 @@ def main():
 
 	# List of functions to be called/websites to be scraped
 	websites_list = [
-				scrape_web_comics, scrape_bbc_news,
-				scrape_reddit_science, scrape_hacker_news,
+				scrape_web_comics, scrape_reddit_science,
+				scrape_hacker_news,
 				scrape_reddit_tech, scrape_reddit_world_news,
 				scrape_reddit_educational_gifs, scrape_reddit_python,
 				scrape_reddit_learn_prog, scrape_reddit_coolguides,

@@ -23,6 +23,8 @@ I expect to keep updating this repo over time, as I make changes to the page's s
 
 * (apr 25th 2019) Changed some sources once again, namely the addition of Hacker News.
 
+* (june 16th 2019) Removed some news sources for the time being.
+
 
 ### External references:
 
