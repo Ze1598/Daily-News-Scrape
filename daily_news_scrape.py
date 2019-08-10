@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 # Used to deal with date and time
 from datetime import date, datetime
 # Used to start files (specifically, the created .txt file)
-from os import startfile
+from os import startfile, getenv
 # Used to time how long the script takes to run
 from time import time
 # Used to interact with Reddit's API
@@ -23,6 +23,8 @@ import praw
 # import smtplib
 # API used to connect to Gmail and send emails
 import yagmail
+# Import variables from a .env file
+from dotenv import load_dotenv
 # File with credentials for the Reddit API
 import Ze1598Bot_credentials as cred
 # Used to open URLs in the default browser
@@ -134,7 +136,6 @@ def scrape_reddit_science ():
 		return_data[1].append(f'\n\t\t\t<li><a href="{post.url}" target="_blank"><span class="remove-anchor-style">{post.title}</span></a></li>')
 
 	return return_data
-
 
 
 def scrape_reddit_tech ():
@@ -369,6 +370,7 @@ def scrape_web_comics ():
 
 	return return_data
 
+
 def scrape_hacker_news ():
 	'''
 	Scrape the top 10 stories from Hacker News.
@@ -427,7 +429,6 @@ def send_emails(email_subject, email_body):
 	)
 	print(f'Your email has been sent to {receiver}.')
 	return None
-
 
 
 def main():
@@ -626,8 +627,19 @@ if __name__ == '__main__':
 	# Time how long it takes to run the script
 	start_time = time()
 
+	# Load the .env file
+	load_dotenv("credentials.env")
+	# Now load the variables from that file as system environment variables
+	client_id = getenv("CLIENT_ID")
+	client_secret = getenv("CLIENT_SECRET")
+	user_agent = getenv("USER_AGENT")
+
 	# Create a Reddit instance for API access
-	reddit_instance = praw.Reddit(client_id=cred.client_id, client_secret=cred.client_secret, user_agent=cred.user_agent)
+	reddit_instance = praw.Reddit(
+		client_id=client_id, 
+		client_secret=client_secret,
+		user_agent=user_agent
+	)
 
 	# Call the main script to function to scrape data from the various\
 	# websites, and write the information to an .html file. It is also\

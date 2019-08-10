@@ -25,6 +25,8 @@ I expect to keep updating this repo over time, as I make changes to the page's s
 
 * (june 16th 2019) Removed some news sources for the time being.
 
+* (aug 10th 2019) Updated the project to get credentials from a .env file instead of a non-tracked Python file.
+
 
 ### External references:
 
