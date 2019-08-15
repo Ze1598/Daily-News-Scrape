@@ -25,8 +25,6 @@ import praw
 import yagmail
 # Import variables from a .env file
 from dotenv import load_dotenv
-# File with credentials for the Reddit API
-import Ze1598Bot_credentials as cred
 # Used to open URLs in the default browser
 # import webbrowser
 
